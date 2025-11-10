@@ -17,6 +17,9 @@ $users = $userDAO->getAll();
 </head>
 <body>
     <h1>Lista de usuarios</h1>
+    <p>
+        <a href="create.php">Crear nuevo usuario</a>
+    </p>
     <table>
         <thead>
             <tr>

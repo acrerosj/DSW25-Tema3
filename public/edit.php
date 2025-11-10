@@ -1,22 +1,20 @@
 <?php
-require_once '../vendor/autoload.php';
 
-require_once 'conexion.php';
+use Dsw\Blog\DAO\UserDAO;
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    // Busco en la base de datos el usuario con ese id.
-    $sql = "SELECT id, name, email FROM users WHERE id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['id' => $id]);
+require_once '../bootstrap.php';
 
-    $user = $stmt->fetch();
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die('El id no es válido.');
+}
 
-} 
+$id = $_GET['id'];
 
-if (!isset($_GET['id']) || !$user) {
-    echo "Id no encontrado";
-    exit();
+$userDAO = new UserDAO($conn);
+$user = $userDAO->get($id);
+
+if (!$user) {
+    die("Usuario no encontrado.");
 }
 
 ?>
@@ -33,11 +31,11 @@ if (!isset($_GET['id']) || !$user) {
         <input type="hidden" name="id" value="<?= $id ?>">
         <p>
             <label for="name">Nombre: </label>
-            <input type="text" name="name" id="name" required value="<?= $user['name'] ?>">
+            <input type="text" name="name" id="name" required value="<?= $user->getName() ?>">
         </p>
         <p>
             <label for="email">Correo electrónico:</label>
-            <input type="email" name="email" id="email" required value="<?= $user['email'] ?>">
+            <input type="email" name="email" id="email" required value="<?= $user->getEmail() ?>">
         </p>
         <p>
             <button type="submit">Modificar</button>

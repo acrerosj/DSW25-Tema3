@@ -39,4 +39,26 @@ class UserDAO {
             $stmt->execute(['id' => $id]);
     }
 
+    public function update(User $user) {
+        $sql = "UPDATE users SET name=:name, email=:email WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->execute([
+            'id' => $user->getId(),
+            'name' => $user->getName(), 
+            'email' => $user->getEmail()
+        ]);
+    }
+
+    public function create(User $user): User {
+        $sql = "INSERT INTO users (name, email) VALUES(:name, :email)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            'name' => $user->getName(), 
+            'email' => $user->getEmail()
+        ]);
+        $user->setId($this->conn->lastInsertId());
+        return $user;
+    }
+
 }

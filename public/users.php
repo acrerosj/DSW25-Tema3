@@ -8,16 +8,9 @@ require_once '../bootstrap.php';
 $userDAO = new UserDAO($conn);
 $users = $userDAO->getAll();
 
+$titulo = "Listado de usuarios";
+include '../includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Lista de usuarios</h1>
     <p>
         <a href="create.php">Crear nuevo usuario</a>
     </p>
@@ -47,5 +40,4 @@ $users = $userDAO->getAll();
 ?>
         </tbody>
     </table>
-</body>
-</html>
+<?php include '../includes/footer.php'; ?>

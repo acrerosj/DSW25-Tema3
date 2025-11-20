@@ -8,6 +8,7 @@ class User {
         private ?int $id,
         private string $name,
         private string $email,
+        private string $level,
         private ?DateTime $registerDate,
     ) {}
 
@@ -19,6 +20,7 @@ class User {
     public function getId() { return $this->id; }
     public function getName() { return $this->name; }
     public function getEmail() { return $this->email; }
+    public function getLevel() { return $this->level; }
     public function getRegisterDate() { return $this->registerDate; }
 
     public function setId(int $id) { $this->id = $id; }

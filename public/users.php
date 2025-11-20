@@ -5,6 +5,11 @@ use Dsw\Blog\DAO\UserDAO;
 
 require_once '../bootstrap.php';
 
+if (!$user || $user->getLevel() !== 'admin') {
+    header('Location: prohibido.php');
+    exit();
+}
+
 $userDAO = new UserDAO($conn);
 $users = $userDAO->getAll();
 

@@ -16,7 +16,7 @@ class UserDAO {
         $stmt->execute(['id' => $id]);
         $register = $stmt->fetch();
         if ($register) {
-            return new User($id, $register['name'], $register['email'], new DateTime($register['register_date']));
+            return new User($id, $register['name'], $register['email'],  $register['access_level'], new DateTime($register['register_date']));
         }
         return null;        
     }
@@ -28,7 +28,7 @@ class UserDAO {
         $stmt->execute();
         $registers = $stmt->fetchAll();
         foreach($registers as $register) {
-            $users[] = new User($register['id'], $register['name'], $register['email'], new DateTime($register['register_date']));
+            $users[] = new User($register['id'], $register['name'], $register['email'], $register['access_level'], new DateTime($register['register_date']));
         }
         return $users;
     }
@@ -59,6 +59,20 @@ class UserDAO {
         ]);
         $user->setId($this->conn->lastInsertId());
         return $user;
+    }
+
+    public function login(string $username, string $password): ?User {
+        $sql = 'SELECT * FROM users WHERE name = :username AND password = :password';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            'username' => $username,
+            'password' => $password
+        ]);
+        $register = $stmt->fetch();
+        if ($register) {
+            return new User($register['id'], $register['name'], $register['email'],  $register['access_level'], new DateTime($register['register_date']));
+        }
+        return null;
     }
 
 }

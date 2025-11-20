@@ -1,4 +1,6 @@
 <?php
+require_once '../bootstrap.php';
+
 $titulo ="Bienvenido";
 include '../includes/header.php';
 ?>

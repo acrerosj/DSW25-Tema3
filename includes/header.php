@@ -9,11 +9,30 @@
 <body>
     <header>
         <h1>Tema3: Blog</h1>
+<?php
+if ($user) {
+    printf('<p>%s - %s</p>', $user->getName(), $user->getLevel());
+}   
+?>
         <nav>
             <ul>
                 <li><a href="index.php">Inicio</a></li>
+            <?php if ($user) { 
+                    if ($user->getLevel() === "admin") {
+            ?>
+            
                 <li><a href="users.php">Usuarios</a></li>
+            <?php
+                    }   
+            ?>
+
                 <li><a href="posts.php">Artículos</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            <?php
+            } else {
+                echo '<li><a href="login.php">Login</a></li>';
+            }
+            ?>   
             </ul>
         </nav>
     </header>

@@ -8,16 +8,9 @@ require_once '../bootstrap.php';
 $postDAO = new PostDAO($conn);
 $posts = $postDAO->getAll();
 
+$titulo ="Publicaciones";
+include '../includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Listado de Artículos</h1>
     <table>
         <thead>
             <tr>
@@ -41,5 +34,6 @@ $posts = $postDAO->getAll();
 ?>
         </tbody>
     </table>
-</body>
-</html>
+<?php
+include '../includes/footer.php';
+?>

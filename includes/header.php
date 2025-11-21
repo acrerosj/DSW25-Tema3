@@ -36,5 +36,6 @@ if ($user) {
             </ul>
         </nav>
     </header>
-    <h1><?= $titulo ?></h1>
-    <div id="container">
+    <main>
+        <h1><?= $titulo ?></h1>
+        <div id="container">
